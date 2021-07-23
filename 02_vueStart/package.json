@@ -1,0 +1,22 @@
+{
+  "name": "vue-start",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "__comment": "Parcel 번들러의 진입점 설정",
+    "dev": "parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.2.2",
+    "parcel-bundler": "^1.12.5",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
