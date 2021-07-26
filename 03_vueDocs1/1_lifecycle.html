@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <style>
+    .color-red {
+      color: salmon;
+    }
+  </style>
+  <div id="app">
+    <!-- <div v-html="msg"></div>
+    <div v-bind:style="myStyle">{{ msg }}</div> -->
+
+    <div v-bind:[attrname]="msg">Hello Vue?!</div>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          // msg: '<h1 style="color:salmon;"><strong>Hello Vue?</strong></h1>',
+          // myStyle: 'color:powderblue'
+          msg: 'color-red',
+          attrname: 'class'
+        }
+      },
+      beforeUpdate() {
+        console.log(document.querySelector('#app').textContent)
+      },
+      updated() {
+        console.log(document.querySelector('#app').textContent)
+      },
+      beforeDestroy() {
+        console.log('파괴 전')
+      },
+      destroyed() {
+        console.log('파괴 후')
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <template v-if="loginType === 'username'">
+      <label>사용자 이름</label>
+      <input placeholder="사용자 이름을 입력하세요" :key="'u'">
+    </template>
+    <template v-else>
+      <label>이메일</label>
+      <input placeholder="이메일 주소를 입력하세요" key="e">
+    </template>
+    <button @click="toggle">Toggle</button>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          loginType: 'username'
+        }
+      },
+      methods: {
+        toggle() {
+          switch(this.loginType) {
+            case 'username':
+              this.loginType = 'useremail'
+              break
+            case 'useremail':
+              this.loginType = 'username'
+              break
+            default:
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

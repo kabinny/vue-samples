@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    /* v-cloak 속성은 잠깐 붙어있다가 화면에 렌더링 되면 사라진다. 뷰가 최적화 되기 전에 잠깐 깜빡임이 있을 수도 있기 때문에 통상 display: none을 추가 한다. */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="pushFruit">Click me!</button>
+    <ul>
+      <li v-for="fruit in fruits" :key="fruit.id">
+        {{ fruit.name }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          fruits: [
+            { id: 'f1', name: 'Apple' }, 
+            { id: 'f2', name: 'Banana' }, 
+            { id: 'f3', name: 'Cherry' }, 
+            { id: 'f4', name: 'Mango' }
+          ]
+        }
+      },
+      methods: {
+        pushFruit() {
+          // this.fruits.push({ id: 'f5', name: 'Orange' })
+          // this.fruits[4] = { id: 'f5', name: 'Orange' }
+          this.$set(this.fruits, 4, { id: 'f5', name: 'Orange' })
+          console.log(this.fruits)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

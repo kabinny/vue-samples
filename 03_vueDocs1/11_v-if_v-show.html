@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    /* v-cloak 속성은 잠깐 붙어있다가 화면에 렌더링 되면 사라진다. 뷰가 최적화 되기 전에 잠깐 깜빡임이 있을 수도 있기 때문에 통상 display: none을 추가 한다. */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div v-if="toggle">v-if!!</div>
+    <div v-show="toggle">v-show!!</div>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          toggle: false
+        }
+      }
+    })
+  </script>
+</body>
+</html>

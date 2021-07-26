@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <style>
+    .color-active {
+      color: salmon;
+    }
+  </style>
+  <div id="app">
+    <button v-on:click="toggle = !toggle">Toggle</button>
+    <div :class="style">
+      Hello Vue?!
+    </div>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          toggle: true,
+          style: { 
+            'color-active': toggle
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

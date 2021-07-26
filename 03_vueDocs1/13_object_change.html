@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    /* v-cloak 속성은 잠깐 붙어있다가 화면에 렌더링 되면 사라진다. 뷰가 최적화 되기 전에 잠깐 깜빡임이 있을 수도 있기 때문에 통상 display: none을 추가 한다. */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button @click="addProp">Click me!</button>
+    <ul>
+      <li v-for="(value, key, index) in user" :key="key">
+        {{ index + 1 }} - {{ key }}: {{ value }}
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    // Vue 인스턴스
+    const vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          user: {
+            name: 'HEROPY',
+            age: 85,
+            email: 'the@gmail.com',
+            // isValid: undefined // 선언해둔다.
+          }
+        }
+      },
+      methods: {
+        addProp() { 
+          this.$set(this.user, 'isValid', true) // 이 속성을 반응성으로 추가할거임 - 데이터, 속성명, 값
+          // this.user.isValid = true
+          console.log(this.user)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
