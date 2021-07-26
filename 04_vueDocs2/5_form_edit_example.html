@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <style>
+    .edit-mode {
+      padding: 20px;
+      background-color: salmon;
+      display: inline-block;
+    }
+  </style>
+  <div id="app">
+    <div v-if="isEdit" ref="editMode" class="edit-mode" @click.stop="onEdit">
+      <input type="text" v-model="msg">
+      <button @click.stop="offEdit">확인</button>
+    </div>
+    <div v-else>
+      <span>{{ msg }}</span>
+      <button @click="onEdit">수정</button>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          msg: 'Hello Vue!',
+          isEdit: false
+        }
+      },
+      mounted() {
+        // window.addEventListener('click', this.offEdit)
+      },
+      methods: {
+        onEdit() {
+          this.isEdit = true
+
+          // 데이터 갱신이 화면 바뀜을 언제할 지 보장하지 않는다. 화면이 바뀌고 나서 이벤트 등록해야 해서.
+          setTimeout(() => {
+            // querySelector는 html 구조를 다 검색해서 찾아내기 때문에 비효율적.
+            // const editModeEl = document.querySelector('.edit-mode')
+            // $refs 를 사용할 수 있다. 해당 요소를 검색할 필요 없이 필요할 때 쓸 수 있다.
+            // this.$refs.editMode.addEventListener('click', event => {
+            //   event.stopPropagation()
+            //   this.onEdit()
+            // })
+            window.addEventListener('click', this.offEdit)
+          }) // 0초는 생략 가능. 실질적으로는 딜레이가 있음 javascript call stack 이용해서 지연시키는 효과
+        },
+        offEdit() {
+          this.isEdit = false
+          window.removeEventListener('click', this.offEdit)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

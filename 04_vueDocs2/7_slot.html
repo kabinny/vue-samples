@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div id="app">
+    <user-comp>
+      <h2>슬롯!</h2>
+      <p>html에 작성한 구조가 통으로 slot으로 들어간다.</p>
+    </user-comp>
+    <user-comp></user-comp>
+  </div>
+
+  <script>
+    const UserComp = {
+      template: 
+        `<div>
+          <h1>Slot</h1>
+          <slot>제공된 내용이 없음</slot>
+        </div>`
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        'user-comp': UserComp
+      }
+    })
+  </script>
+</body>
+</html>

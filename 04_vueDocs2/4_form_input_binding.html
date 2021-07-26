@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 단방향 데이터 바인딩 -->
+    <!-- <input type="text" :value="msg"> -->
+
+    <!-- CJK 완벽 동기화 -->
+    <!-- <input type="text" :value="msg" @input="changeInput"> -->
+
+    <!-- 엔터나 탭, 블러 등 될 때  -->
+    <!-- <input type="text" v-model.lazy="msg"> -->
+
+    <!-- 숫자형으로 형변환 -->
+    <!-- <input type="text" v-model.number="msg"> -->
+
+    <!-- 문자 데이터에서 앞뒤 공백을 제거 -->
+    <!-- <input type="text" v-model.trim="msg"> -->
+    
+    <input type="text" v-model.trim="msg">
+
+    <input type="checkbox" v-model="checked">
+    <button @click="log">Click me!</button>
+    <div>
+      {{ msg }}
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          msg: 'Hello Vue!',
+          checked: true
+        }
+      },
+      methods: {
+        log() {
+          console.log(this.msg)
+          // console.log(typeof this.msg)
+          this.checked = !this.checked
+        },
+        changeInput(event) {
+          // 인풋 될 때 마다 수동으로 갱신하기. v-model 은 자동으로 해주지만 CJK 입력 이슈가 있다. 완벽 동기화를 위해 수동 연결.
+          this.msg = event.target.value
+        }
+      }
+    })
+  </script>
+</body>
+</html>

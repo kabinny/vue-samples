@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div id="app">
+    <user-comp new-msg="Good" @some-text="listener"></user-comp>
+    <user-comp :new-msg="msg"></user-comp>
+    <user-comp new-msg="Pointer" :count="123"></user-comp>
+    <user-comp new-msg="안녕!"></user-comp>
+  </div>
+
+  <script>
+    // 전역 등록
+    // Vue.component('user-comp', {
+    //   template: '<div>{{ msg }}</div>',
+    //   data() {
+    //     return {
+    //       msg: 'Hello Component!'
+    //     }
+    //   }
+    // })
+    
+    // 지역 등록
+    const UserComp = {
+      template: '<div @click="emit">{{ msg }} / {{ newMsg }} / {{ count }}</div>',
+      props: {
+        newMsg: String,
+        count: Number
+      },
+      data() {
+        return {
+          msg: 'Hello Component!'
+        }
+      },
+      methods: {
+        emit() {
+          this.$emit('some-text', this.msg) // 이벤트 이름, 태워보낼 데이터
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        'user-comp': UserComp
+      },
+      data() {
+        return {
+          msg: 'first msg'
+        }
+      },
+      methods: {
+        listener(msg) {
+          console.log(msg)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

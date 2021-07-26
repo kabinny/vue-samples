@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="user in youngUsers" 
+          :key="user.id">
+        {{ user.name }}
+        <ul>
+          <template v-for="email in user.emails">
+            <li v-if="hasGmail(email)" :key="email">
+              {{ email }}
+            </li>
+          </template>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    const users = [{
+        id: 'R1V9GFcnuy',
+        name: 'Neo',
+        age: 85,
+        emails: ['neo@gmail.com', 'neo@naver.com'],
+        isValid: true,
+      },
+      {
+        id: 'jjcuENuCDz',
+        name: 'Evan',
+        age: 99,
+        emails: ['evan@hanmail.net'],
+        isValid: true
+      },
+      {
+        id: 'QC3QFHt5gM',
+        name: 'Lewis',
+        age: 22,
+        emails: ['lewis@naver.com', 'lewis@hanmail.net'],
+        isValid: false
+      },
+      {
+        id: 'cbEM3BxZpr',
+        name: 'Lia',
+        age: 72,
+        emails: ['lia@gmail.com'],
+        isValid: false
+      },
+      {
+        id: 'WQ9clrJLiH',
+        name: 'Amy',
+        age: 41,
+        emails: ['amy@gmail.com', 'amy@naver.com'],
+        isValid: true
+      },
+      {
+        id: 'R1V9GFcnuy',
+        name: 'Neo',
+        age: 85,
+        emails: ['neo@gmail.com', 'neo@naver.com'],
+        isValid: true,
+      }
+    ]
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          users
+        }
+      },
+      computed: {
+        uniqUsers() {
+          return _.uniqBy(this.users, 'id')
+          // const ids = []
+          // return this.users.filter(user => {
+          //   if (ids.includes(user.id)) {
+          //     return false
+          //   }
+          //   ids.push(user.id)
+          //   return true
+          // })
+        },
+        youngUsers() {
+          return this.uniqUsers.filter(user => user.age < 80)
+        }
+      },
+      methods: {
+        hasGmail(email) {
+          return /@gmail\.com/.test(email)
+          // email 변수에 포함여부를 불린으로 반환
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

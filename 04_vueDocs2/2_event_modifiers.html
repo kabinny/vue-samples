@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <style>
+    #app {
+      padding: 50px;
+      line-height: 1.5;
+    }
+    section {
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 4px solid orange;
+    }
+    h2 {
+      font-weight: bold;
+      font-size: 24px;
+    }
+    .parent {
+      width: 70%;
+      height: 80px;
+      background-color: royalblue;
+      padding: 20px;
+    }
+    .child {
+      width: 70%;
+      height: 60px;
+      background-color: orange;
+    }
+    .wheel {
+      overflow: auto;
+    }
+    .wheel .child {
+      height: 2000px;
+    }
+  </style>
+
+  <div id="app">
+    <section>
+      <h2>.prevent</h2>
+      <p>event.preventDefault()</p>
+      <div>
+        <a href="http://google.com" 
+           target="_blank"
+           @click.prevent="log">google</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>.once</h2>
+      <div>
+        <a href="http://google.com" 
+           target="_blank"
+           @click.prevent.once="log">google</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>.stop</h2>
+      <p>event.stopPropagation</p>
+      <div>
+        <div class="parent" 
+             @click.stop="handler">
+          <div class="child" 
+               @click="handler"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>.capture</h2>
+      <p>element.addEventListener('click', event => {}, { capture: true })</p>
+      <div>
+        <div class="parent"
+             @click.capture="handler">
+          <div class="child"
+               @click="handler"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>.self</h2>
+      <div>
+        <div class="parent"
+             @click.self="handler">
+          <div class="child"
+               ></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>.passive</h2>
+      <p>
+        이벤트 핸들러의 처리를 완료하지 않고도 기본 속도로 화면을 스크롤!<br/>
+        element.addEventListener('wheel', event => { }, { passive: true })
+      </p>
+      <div 
+        class="parent wheel"
+        @wheel.passive="wheelHandler">
+        <div class="child"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    window.addEventListener('click', () => {
+      console.log('Window Click!') 
+    }, { capture: true })
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          
+        }
+      },
+      methods: {
+        log() {
+          console.log('To google!')
+        },
+        handler(event) {
+          // console.log(event)
+          console.log(event.currentTarget, event.target) // currentTarget 이벤트가 연결된 요소, target 클릭한 요소
+        },
+        wheelHandler(event) {
+          // 콘솔에 10000번 출력되고 나서 스크롤이 되니까 버벅일 수 있음. .passive 는 따로 되게 분리. 출력과 로직의 동작을 별개로 구분할 때 사용. 주로 모바일에서
+          for (let i = 0; i < 10000; i += 1) {
+            console.log(event)
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
