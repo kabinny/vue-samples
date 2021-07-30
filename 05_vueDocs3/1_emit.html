@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <comp-a :msg="message" @update:msg="updateMsg"></comp-a>
+    
+    <h1>{{ message }}</h1>
+  </div>
+
+  <script>
+    // 컴포넌트 지역 등록
+    const CompA = {
+      template: '<button @click="addExclamation">Click!</button>',
+      props: {
+        msg: String
+      },
+      methods: {
+        addExclamation() {
+          // 자식 컴포에서 부모 컴포 데이터 바로 수정하면 반응성을 가지지 않음 
+          // this.msg += '!'
+          this.$emit('update:msg', this.msg + '!')
+        }
+      }
+    }
+    new Vue({
+      el: '#app',
+      components: {
+        CompA
+      },
+      data() {
+        return {
+          message: 'Hello Vue'
+        }
+      },
+      methods: {
+        updateMsg(newMsg) { // 자식 컴포에 있는 this.msg + '!' 부분이 들어옴. 데이터 갱신은 부모 컴포넌트가 해야한다는 것. 
+          this.message = newMsg
+        }
+      }
+    })
+  </script>
+</body>
+</html>

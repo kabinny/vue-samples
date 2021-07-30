@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="toggleComp">Toggle!</button>
+    <component :is="compName"></component>
+    <!-- <keep-alive>
+      <component :is="compName"></component>
+    </keep-alive> -->
+  </div>
+
+  <script>
+    const CompA = {
+      template: '<h1>A</h1>',
+      destroyed() {
+        console.log('Destroyed CompA!')
+      },
+      // keep-alive 안에서만 사용할 수 있는 라이프사이클
+      activated() {
+        console.log('activated CompA!')
+      },
+      deactivated() {
+        console.log('deactivated CompA!')
+      }
+    }
+    const CompB = {
+      template: '<h1>B</h1>'
+    }
+    const CompC = {
+      template: '<h1>C</h1>'
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        CompA,
+        CompB,
+        CompC
+      },
+      data() {
+        return {
+          compName: 'CompA'
+        }
+      },
+      methods: {
+        toggleComp() {
+          switch (this.compName) {
+            case 'CompA':
+              this.compName = 'CompB'
+              break
+            case 'CompB':
+              this.compName = 'CompC'
+              break
+            case 'CompC':
+              this.compName = 'CompA'
+              break
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

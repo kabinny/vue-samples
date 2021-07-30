@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <comps>
+      <comp-a></comp-a>
+      <comp-b></comp-b>
+    </comps>
+    <comp-b></comp-b>
+  </div>
+
+  <script>
+    // 전역 생성한 컴포넌트를 버스용으로만 쓴다. 권장되지는 않음. 아주 단순한 데이터 이동일 때만 고려해볼 수 있지만 프로젝트 커지면 vuex 도입을 권장.
+    const bus = new Vue()
+
+    const Comps = {
+      template: '<div><h1>Components</h1><slot></slot></div>'
+    }
+
+    const CompA = {
+      template: '<button @click="getOnBus">CompA</button>',
+      methods: {
+        getOnBus() {
+          bus.$emit('83-1', 'JENNIE')
+        }
+      }
+    }
+    const CompB = {
+      template: '<h1>Hi~ {{ user }}</h1>',
+      data() {
+        return {
+          user: '...'
+        }
+      },
+      created() {
+        bus.$on('83-1', userName => {
+          this.user = userName
+        })
+      }
+    }
+    new Vue({
+      el: '#app',
+      components: {
+        Comps,
+        CompA,
+        CompB
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <comp-a>
+      <template slot-scope="props">
+        <div>{{ props.myText }} JENNIE!</div>
+      </template>
+    </comp-a>
+    
+    <comp-a>
+      <!-- 객체 구조분해 할당 활용 -->
+      <template slot-scope="{ myText }">
+        <div>{{ myText }} JENNIE!</div>
+      </template>
+    </comp-a>
+  </div>
+
+  <script>
+    const CompA = {
+      template: 
+        `<div>
+          <h1>CompA</h1>  
+          <slot my-text="Hi~"></slot>
+        </div>`
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        CompA
+      }
+    })
+  </script>
+</body>
+</html>
