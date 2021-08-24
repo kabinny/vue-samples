@@ -17,7 +17,7 @@ export default {
       return this.$store.state.message.msg
     },
     reversedMsg() {
-      return this.$stor.getters['message/reversedMsg']
+      return this.$store.getters['message/reversedMsg']
     }
   },
   methods: { // 동작을 가져올 때
